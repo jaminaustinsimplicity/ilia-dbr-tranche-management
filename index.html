@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
-  <title>ILIA — DBR Tranche Management</title>
+  <title>ILIA — DBR Column in Tranche Management</title>
   <link rel="preconnect" href="https://fonts.googleapis.com"/>
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet"/>
@@ -29,55 +29,37 @@
     .app-bar-divider{width:1px;height:24px;background:rgba(255,255,255,0.3);}
     .app-bar-title{font-size:18px;font-weight:500;flex:1;}
     .app-bar-sub{font-size:13px;opacity:0.75;}
-    .icon-btn{width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:background 0.15s;}
-    .icon-btn:hover{background:rgba(255,255,255,0.15);}
     .avatar{width:36px;height:36px;border-radius:50%;background:rgba(255,255,255,0.25);display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:600;}
 
     /* CONTENT */
-    .content{flex:1;padding:28px 32px;overflow-y:auto;}
+    .content{flex:1;padding:28px 32px;}
 
     /* PAGE HEADER */
-    .page-header{margin-bottom:24px;}
-    .breadcrumb{display:flex;align-items:center;gap:6px;font-size:13px;color:var(--on-surface-variant);margin-bottom:8px;}
-    .breadcrumb a{color:var(--primary);text-decoration:none;}
-    .breadcrumb .material-symbols-outlined{font-size:16px;}
-    .page-title{font-size:24px;font-weight:500;}
-    .page-sub{font-size:14px;color:var(--on-surface-variant);margin-top:4px;}
+    .page-title{font-size:22px;font-weight:500;margin-bottom:4px;}
+    .page-sub{font-size:13px;color:var(--on-surface-variant);margin-bottom:20px;}
 
-    /* STAT ROW */
-    .stat-row{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:24px;}
-    .stat-card{background:var(--surface);border:1px solid var(--outline-variant);border-radius:16px;padding:18px 20px;display:flex;flex-direction:column;gap:6px;}
-    .stat-label{font-size:12px;color:var(--on-surface-variant);}
-    .stat-value{font-size:26px;font-weight:500;}
-    .stat-delta{font-size:12px;display:flex;align-items:center;gap:4px;}
+    /* CONTEXT LABEL */
+    .context-label{display:inline-flex;align-items:center;gap:6px;background:var(--primary-container);color:var(--on-primary-container);padding:6px 14px;border-radius:8px;font-size:12px;font-weight:500;margin-bottom:20px;}
+    .context-label .material-symbols-outlined{font-size:16px;color:var(--primary);}
 
-    /* TABS */
-    .tab-bar{display:flex;border-bottom:2px solid var(--outline-variant);margin-bottom:20px;}
-    .tab{padding:12px 20px;font-size:14px;font-weight:500;color:var(--on-surface-variant);cursor:pointer;border-bottom:3px solid transparent;margin-bottom:-2px;transition:color 0.15s,border-color 0.15s;white-space:nowrap;}
-    .tab.active{color:var(--primary);border-bottom-color:var(--primary);}
-    .tab:hover:not(.active){color:var(--on-surface);}
-
-    /* FILTERS */
-    .filter-row{display:flex;align-items:center;gap:10px;margin-bottom:16px;flex-wrap:wrap;}
-    .search-wrap{position:relative;flex:1;min-width:200px;max-width:340px;}
-    .search-wrap .material-symbols-outlined{position:absolute;left:12px;top:50%;transform:translateY(-50%);font-size:18px;color:var(--on-surface-variant);}
-    .search-input{width:100%;padding:9px 12px 9px 38px;border:1.5px solid var(--outline-variant);border-radius:24px;font-size:13px;font-family:'Roboto',sans-serif;outline:none;background:var(--surface);color:var(--on-surface);}
-    .search-input:focus{border-color:var(--primary);}
-    .filter-select{padding:8px 14px;border:1.5px solid var(--outline-variant);border-radius:20px;font-size:13px;font-family:'Roboto',sans-serif;background:var(--surface);color:var(--on-surface);outline:none;cursor:pointer;}
-    .filter-select:focus{border-color:var(--primary);}
-    .btn-primary{display:inline-flex;align-items:center;gap:6px;padding:9px 18px;background:var(--primary);color:#fff;border:none;border-radius:20px;font-size:13px;font-weight:500;font-family:'Roboto',sans-serif;cursor:pointer;transition:opacity 0.15s;white-space:nowrap;}
-    .btn-primary:hover{opacity:0.88;}
-    .btn-outlined{display:inline-flex;align-items:center;gap:6px;padding:8px 16px;background:transparent;color:var(--primary);border:1.5px solid var(--primary);border-radius:20px;font-size:13px;font-weight:500;font-family:'Roboto',sans-serif;cursor:pointer;white-space:nowrap;}
-    .btn-outlined:hover{background:var(--primary-container);}
-    .ml-auto{margin-left:auto;}
+    /* TABLE CARD */
+    .card{background:var(--surface);border:1px solid var(--outline-variant);border-radius:16px;overflow:hidden;}
+    .card-header{display:flex;align-items:center;justify-content:space-between;padding:16px 20px;border-bottom:1px solid var(--outline-variant);}
+    .card-title{font-size:15px;font-weight:500;}
+    .card-sub{font-size:12px;color:var(--on-surface-variant);margin-top:2px;}
 
     /* TABLE */
-    .card{background:var(--surface);border:1px solid var(--outline-variant);border-radius:16px;overflow:hidden;}
     .data-table{width:100%;border-collapse:collapse;}
-    .data-table th{text-align:left;padding:11px 18px;font-size:11px;font-weight:500;letter-spacing:0.4px;color:var(--on-surface-variant);background:var(--surface-container-low);border-bottom:1px solid var(--outline-variant);white-space:nowrap;}
-    .data-table td{padding:13px 18px;font-size:13px;border-bottom:1px solid var(--outline-variant);vertical-align:middle;}
+    .data-table th{text-align:left;padding:10px 18px;font-size:11px;font-weight:500;letter-spacing:0.4px;color:var(--on-surface-variant);background:var(--surface-container-low);border-bottom:1px solid var(--outline-variant);white-space:nowrap;}
+    .data-table td{padding:14px 18px;font-size:13px;border-bottom:1px solid var(--outline-variant);vertical-align:middle;}
     .data-table tr:last-child td{border-bottom:none;}
-    .data-table tr:hover td{background:var(--surface-container-low);cursor:pointer;}
+    .data-table tr:hover td{background:var(--surface-container-low);}
+
+    /* HIGHLIGHT DBR COLUMNS */
+    .data-table th.dbr-col{background:#EDE7F6;color:#4527A0;border-left:2px solid #9C27B0;}
+    .data-table td.dbr-col{border-left:2px solid #E1BEE7;background:#FAF8FF;}
+    .data-table tr:hover td.dbr-col{background:#F3E5F5;}
+
     .insured-name{font-weight:500;color:var(--primary);cursor:pointer;}
     .insured-name:hover{text-decoration:underline;}
     .insured-sub{font-size:11px;color:var(--on-surface-variant);margin-top:2px;}
@@ -89,10 +71,9 @@
     .badge.primary{background:var(--primary-container);color:#001257;}
     .badge.error{background:var(--error-container);color:#410002;}
     .badge.neutral{background:var(--surface-container-high);color:var(--on-surface-variant);}
-    .badge.amber{background:#FFF3E0;color:#E65100;}
 
-    /* DBR STATUS PILL */
-    .dbr-status{display:inline-flex;align-items:center;gap:6px;padding:4px 10px;border-radius:20px;font-size:11px;font-weight:500;white-space:nowrap;}
+    /* DBR STATUS */
+    .dbr-status{display:inline-flex;align-items:center;gap:5px;padding:4px 10px;border-radius:20px;font-size:11px;font-weight:500;white-space:nowrap;}
     .dbr-status .material-symbols-outlined{font-size:13px;}
     .dbr-status.eligible{background:#EDE7F6;color:#4527A0;}
     .dbr-status.sent{background:var(--success-container);color:#002810;}
@@ -100,18 +81,25 @@
     .dbr-status.not-eligible{background:var(--surface-container-high);color:var(--on-surface-variant);}
     .dbr-status.overdue{background:var(--error-container);color:#410002;}
 
-    /* ACTION BUTTONS IN TABLE */
-    .action-btn{display:inline-flex;align-items:center;gap:4px;padding:5px 12px;border-radius:16px;font-size:11px;font-weight:500;font-family:'Roboto',sans-serif;cursor:pointer;border:none;white-space:nowrap;transition:opacity 0.15s;}
+    /* NOTICE SENT TEXT */
+    .notice-sent-text{font-size:12px;font-weight:500;color:var(--success);}
+    .notice-pending-text{font-size:12px;color:var(--on-surface-variant);}
+    .notice-overdue-text{font-size:12px;font-weight:500;color:var(--error);}
+    .notice-na-text{font-size:12px;color:var(--on-surface-variant);}
+
+    /* ACTION BUTTONS */
+    .action-btn{display:inline-flex;align-items:center;gap:5px;padding:6px 14px;border-radius:16px;font-size:12px;font-weight:500;font-family:'Roboto',sans-serif;cursor:pointer;border:none;white-space:nowrap;transition:opacity 0.15s;}
     .action-btn:hover{opacity:0.85;}
     .action-btn.send{background:var(--primary);color:#fff;}
-    .action-btn.resend{background:var(--surface-container-high);color:var(--on-surface);}
-    .action-btn.view{background:var(--primary-container);color:var(--on-primary-container);}
+    .action-btn.send-now{background:var(--error);color:#fff;}
+    .action-btn.resend{background:var(--surface-container-high);color:var(--on-surface);border:1px solid var(--outline-variant);}
+    .action-btn .material-symbols-outlined{font-size:14px;}
 
-    /* DBR DETAIL PANEL */
-    .detail-panel{background:var(--primary-container);border-radius:12px;padding:14px 18px;margin-bottom:16px;display:flex;align-items:center;gap:16px;flex-wrap:wrap;}
-    .detail-panel-item{display:flex;flex-direction:column;gap:2px;}
-    .detail-panel-label{font-size:11px;color:var(--primary);font-weight:500;text-transform:uppercase;letter-spacing:0.4px;}
-    .detail-panel-value{font-size:14px;font-weight:500;color:var(--on-primary-container);}
+    /* BUTTONS */
+    .btn-primary{display:inline-flex;align-items:center;gap:6px;padding:9px 18px;background:var(--primary);color:#fff;border:none;border-radius:20px;font-size:13px;font-weight:500;font-family:'Roboto',sans-serif;cursor:pointer;white-space:nowrap;}
+    .btn-primary:hover{opacity:0.88;}
+    .btn-outlined{display:inline-flex;align-items:center;gap:6px;padding:8px 16px;background:transparent;color:var(--primary);border:1.5px solid var(--primary);border-radius:20px;font-size:13px;font-weight:500;font-family:'Roboto',sans-serif;cursor:pointer;}
+    .btn-outlined:hover{background:var(--primary-container);}
 
     /* MODAL */
     .modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.45);z-index:100;display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity 0.2s;}
@@ -126,7 +114,7 @@
     .modal-body p{font-size:14px;line-height:1.6;margin-bottom:16px;}
     .modal-row{display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-bottom:1px solid var(--outline-variant);font-size:13px;gap:16px;}
     .modal-row:last-of-type{border-bottom:none;}
-    .modal-row-label{color:var(--on-surface-variant);flex-shrink:0;}
+    .modal-row-label{color:var(--on-surface-variant);}
     .signer-section{margin-top:16px;}
     .signer-section-title{font-size:11px;font-weight:500;color:var(--primary);text-transform:uppercase;letter-spacing:0.6px;margin-bottom:10px;padding-bottom:6px;border-bottom:1px solid var(--primary-container);}
     .signer-card{background:var(--surface-container-low);border:1px solid var(--outline-variant);border-radius:10px;padding:12px 16px;margin-bottom:10px;}
@@ -150,98 +138,32 @@
   <div class="app-bar">
     <span class="app-bar-logo">ILIA</span>
     <div class="app-bar-divider"></div>
-    <span class="app-bar-title">Tranche Management — DBR Tracking</span>
+    <span class="app-bar-title">Tranche Management — DBR Column</span>
     <span class="app-bar-sub">Admin View</span>
-    <div class="icon-btn"><span class="material-symbols-outlined">notifications</span></div>
     <div class="avatar">JA</div>
   </div>
 
   <div class="content">
+    <div class="page-title">Manage Tranche — DBR Overview</div>
+    <div class="page-sub">Proposed DBR column addition to existing Tranche Management participant table</div>
 
-    <!-- BREADCRUMB + HEADER -->
-    <div class="page-header">
-      <div class="breadcrumb">
-        <a href="#">Tranche Management</a>
-        <span class="material-symbols-outlined">chevron_right</span>
-        <span>Tranche 73 — DBR Tracking</span>
-      </div>
-      <div class="page-title">Manage Tranche — DBR Overview</div>
-      <div class="page-sub">Track Death Benefit Reduction status across all participants in this tranche</div>
+    <div class="context-label">
+      <span class="material-symbols-outlined">info</span>
+      Prototype focus: The highlighted columns (Notice Sent + Action) are the proposed DBR additions to the existing TM table
     </div>
 
-    <!-- TRANCHE INFO PANEL -->
-    <div class="detail-panel">
-      <div class="detail-panel-item"><span class="detail-panel-label">Tranche</span><span class="detail-panel-value">73</span></div>
-      <div class="detail-panel-item"><span class="detail-panel-label">Master Trust Date</span><span class="detail-panel-value">03/01/2025</span></div>
-      <div class="detail-panel-item"><span class="detail-panel-label">Projected Funding</span><span class="detail-panel-value">12/23/2025</span></div>
-      <div class="detail-panel-item"><span class="detail-panel-label">Bank</span><span class="detail-panel-value">Life Direct</span></div>
-      <div class="detail-panel-item"><span class="detail-panel-label">Tranche Status</span><span class="detail-panel-value"><span class="badge success">Open</span></span></div>
-    </div>
-
-    <!-- STAT CARDS -->
-    <div class="stat-row">
-      <div class="stat-card">
-        <div class="stat-label">DBR Eligible</div>
-        <div class="stat-value" style="color:var(--primary)">12</div>
-        <div class="stat-delta" style="color:var(--on-surface-variant)">Policies in Years 11–15</div>
-      </div>
-      <div class="stat-card">
-        <div class="stat-label">Notices Sent</div>
-        <div class="stat-value" style="color:var(--success)">7</div>
-        <div class="stat-delta" style="color:var(--success)">↑ 3 this week</div>
-      </div>
-      <div class="stat-card">
-        <div class="stat-label">Awaiting Send</div>
-        <div class="stat-value" style="color:var(--warning)">4</div>
-        <div class="stat-delta" style="color:var(--warning)">Action needed</div>
-      </div>
-      <div class="stat-card">
-        <div class="stat-label">Overdue Notices</div>
-        <div class="stat-value" style="color:var(--error)">1</div>
-        <div class="stat-delta" style="color:var(--error)">Past 90-day window</div>
-      </div>
-    </div>
-
-    <!-- TABS -->
-    <div class="tab-bar">
-      <div class="tab active" onclick="setTab(this,'all')">All Participants</div>
-      <div class="tab" onclick="setTab(this,'eligible')">DBR Eligible</div>
-      <div class="tab" onclick="setTab(this,'sent')">Notice Sent</div>
-      <div class="tab" onclick="setTab(this,'pending')">Awaiting Send</div>
-      <div class="tab" onclick="setTab(this,'overdue')">Overdue</div>
-    </div>
-
-    <!-- FILTERS -->
-    <div class="filter-row">
-      <div class="search-wrap">
-        <span class="material-symbols-outlined">search</span>
-        <input class="search-input" type="text" placeholder="Search insured name..."/>
-      </div>
-      <select class="filter-select">
-        <option>All DBR Status</option>
-        <option>Eligible — Not Sent</option>
-        <option>Notice Sent</option>
-        <option>Overdue</option>
-        <option>Not Eligible</option>
-      </select>
-      <select class="filter-select">
-        <option>All Policy Years</option>
-        <option>Year 11</option>
-        <option>Year 12</option>
-        <option>Year 13</option>
-        <option>Year 14</option>
-        <option>Year 15</option>
-      </select>
-      <div class="ml-auto">
+    <div class="card">
+      <div class="card-header">
+        <div>
+          <div class="card-title">Participants — Tranche 73</div>
+          <div class="card-sub">Proposed DBR tracking columns shown highlighted in purple</div>
+        </div>
         <button class="btn-primary" onclick="openBulkModal()">
           <span class="material-symbols-outlined" style="font-size:16px">send</span>
           Send All Pending Notices
         </button>
       </div>
-    </div>
 
-    <!-- TABLE -->
-    <div class="card">
       <table class="data-table">
         <thead>
           <tr>
@@ -251,67 +173,81 @@
             <th>DBR Amount</th>
             <th>Anniversary Date</th>
             <th>DBR Status</th>
-            <th>Notice Sent</th>
-            <th>Action</th>
+            <th class="dbr-col">📬 Notice Sent</th>
+            <th class="dbr-col">⚡ Action</th>
           </tr>
         </thead>
         <tbody>
+
+          <!-- ROW 1: Overdue -->
           <tr>
             <td><div class="insured-name">Bhavin Chandrakant Patel</div><div class="insured-sub">Individual · Kai-Zen · InForce</div></td>
             <td>LS22801234</td><td>Year 11</td><td>$187,450</td><td>03/01/2026</td>
             <td><span class="dbr-status overdue"><span class="material-symbols-outlined">warning</span>Overdue</span></td>
-            <td><span style="color:var(--error);font-size:12px;">Not sent — 92 days past</span></td>
-            <td><button class="action-btn send" onclick="openSendModal('Bhavin Chandrakant Patel','LS22801234','Year 11','$187,450')"><span class="material-symbols-outlined" style="font-size:13px">send</span>Send Now</button></td>
+            <td class="dbr-col"><span class="notice-overdue-text">Not sent — 92 days past</span></td>
+            <td class="dbr-col"><button class="action-btn send-now" onclick="openSendModal('Bhavin Chandrakant Patel','LS22801234','Year 11','$187,450')"><span class="material-symbols-outlined">send</span>Send Now</button></td>
           </tr>
+
+          <!-- ROW 2: Eligible Pending -->
           <tr>
             <td><div class="insured-name">Aaron Nazar Johnson</div><div class="insured-sub">Individual · Kai-Zen · InForce</div></td>
             <td>LS22801235</td><td>Year 12</td><td>$142,300</td><td>04/15/2026</td>
             <td><span class="dbr-status pending"><span class="material-symbols-outlined">schedule</span>Eligible — Pending</span></td>
-            <td><span style="color:var(--on-surface-variant);font-size:12px;">Not yet sent</span></td>
-            <td><button class="action-btn send" onclick="openSendModal('Aaron Nazar Johnson','LS22801235','Year 12','$142,300')"><span class="material-symbols-outlined" style="font-size:13px">send</span>Send Notice</button></td>
+            <td class="dbr-col"><span class="notice-pending-text">Not yet sent</span></td>
+            <td class="dbr-col"><button class="action-btn send" onclick="openSendModal('Aaron Nazar Johnson','LS22801235','Year 12','$142,300')"><span class="material-symbols-outlined">send</span>Send Notice</button></td>
           </tr>
+
+          <!-- ROW 3: Notice Sent -->
           <tr>
             <td><div class="insured-name">Taylor Hollis Cole</div><div class="insured-sub">Individual · Kai-Zen · InForce</div></td>
             <td>LS22801236</td><td>Year 11</td><td>$201,000</td><td>05/01/2026</td>
             <td><span class="dbr-status sent"><span class="material-symbols-outlined">check_circle</span>Notice Sent</span></td>
-            <td><span style="color:var(--success);font-size:12px;">Sent Apr 28, 2026</span></td>
-            <td><button class="action-btn resend" onclick="openResendModal('Taylor Hollis Cole','LS22801236','Apr 28, 2026')"><span class="material-symbols-outlined" style="font-size:13px">refresh</span>Resend</button></td>
+            <td class="dbr-col"><span class="notice-sent-text">Sent Apr 28, 2026</span></td>
+            <td class="dbr-col"><button class="action-btn resend" onclick="openResendModal('Taylor Hollis Cole','LS22801236','Apr 28, 2026')"><span class="material-symbols-outlined">refresh</span>Resend</button></td>
           </tr>
+
+          <!-- ROW 4: Eligible Pending -->
           <tr>
             <td><div class="insured-name">Mai Jia Yang</div><div class="insured-sub">Individual · Kai-Zen · InForce</div></td>
             <td>LS22801237</td><td>Year 13</td><td>$95,750</td><td>06/10/2026</td>
             <td><span class="dbr-status pending"><span class="material-symbols-outlined">schedule</span>Eligible — Pending</span></td>
-            <td><span style="color:var(--on-surface-variant);font-size:12px;">Not yet sent</span></td>
-            <td><button class="action-btn send" onclick="openSendModal('Mai Jia Yang','LS22801237','Year 13','$95,750')"><span class="material-symbols-outlined" style="font-size:13px">send</span>Send Notice</button></td>
+            <td class="dbr-col"><span class="notice-pending-text">Not yet sent</span></td>
+            <td class="dbr-col"><button class="action-btn send" onclick="openSendModal('Mai Jia Yang','LS22801237','Year 13','$95,750')"><span class="material-symbols-outlined">send</span>Send Notice</button></td>
           </tr>
+
+          <!-- ROW 5: Notice Sent -->
           <tr>
             <td><div class="insured-name">Dung Quang Pham</div><div class="insured-sub">Individual · Kai-Zen · InForce</div></td>
             <td>LS22801238</td><td>Year 14</td><td>$167,890</td><td>07/22/2026</td>
             <td><span class="dbr-status sent"><span class="material-symbols-outlined">check_circle</span>Notice Sent</span></td>
-            <td><span style="color:var(--success);font-size:12px;">Sent May 1, 2026</span></td>
-            <td><button class="action-btn resend" onclick="openResendModal('Dung Quang Pham','LS22801238','May 1, 2026')"><span class="material-symbols-outlined" style="font-size:13px">refresh</span>Resend</button></td>
+            <td class="dbr-col"><span class="notice-sent-text">Sent May 1, 2026</span></td>
+            <td class="dbr-col"><button class="action-btn resend" onclick="openResendModal('Dung Quang Pham','LS22801238','May 1, 2026')"><span class="material-symbols-outlined">refresh</span>Resend</button></td>
           </tr>
+
+          <!-- ROW 6: Eligible Pending -->
           <tr>
             <td><div class="insured-name">Sandra Lee Morales</div><div class="insured-sub">Individual · Kai-Zen · InForce</div></td>
             <td>LS22801239</td><td>Year 15</td><td>$223,100</td><td>08/05/2026</td>
             <td><span class="dbr-status pending"><span class="material-symbols-outlined">schedule</span>Eligible — Pending</span></td>
-            <td><span style="color:var(--on-surface-variant);font-size:12px;">Not yet sent</span></td>
-            <td><button class="action-btn send" onclick="openSendModal('Sandra Lee Morales','LS22801239','Year 15','$223,100')"><span class="material-symbols-outlined" style="font-size:13px">send</span>Send Notice</button></td>
+            <td class="dbr-col"><span class="notice-pending-text">Not yet sent</span></td>
+            <td class="dbr-col"><button class="action-btn send" onclick="openSendModal('Sandra Lee Morales','LS22801239','Year 15','$223,100')"><span class="material-symbols-outlined">send</span>Send Notice</button></td>
           </tr>
+
+          <!-- ROW 7: Not Eligible -->
           <tr>
             <td><div class="insured-name">James R. Thompson</div><div class="insured-sub">Individual · Kai-Zen · InForce</div></td>
             <td>LS22801240</td><td>Year 8</td><td>—</td><td>09/12/2026</td>
             <td><span class="dbr-status not-eligible"><span class="material-symbols-outlined">remove_circle</span>Not Eligible</span></td>
-            <td><span style="color:var(--on-surface-variant);font-size:12px;">Available Year 11+</span></td>
-            <td><span style="color:var(--on-surface-variant);font-size:12px;">—</span></td>
+            <td class="dbr-col"><span class="notice-na-text">Available Year 11+</span></td>
+            <td class="dbr-col"><span style="color:var(--on-surface-variant);font-size:12px;">—</span></td>
           </tr>
+
         </tbody>
       </table>
     </div>
-
   </div>
 
-  <!-- SEND NOTICE MODAL -->
+  <!-- SEND MODAL -->
   <div class="modal-overlay" id="sendModal">
     <div class="modal">
       <div class="modal-header">
@@ -319,23 +255,23 @@
         <button class="modal-close" onclick="closeModal('sendModal')">close</button>
       </div>
       <div class="modal-body">
-        <p>You are about to send a <strong>Death Benefit Reduction notice</strong>. Confirm details and expected signers below.</p>
-        <div class="modal-row"><span class="modal-row-label">Insured</span><strong id="sendName">—</strong></div>
-        <div class="modal-row"><span class="modal-row-label">Policy #</span><strong id="sendPolicy">—</strong></div>
-        <div class="modal-row"><span class="modal-row-label">Policy Year</span><strong id="sendYear">—</strong></div>
-        <div class="modal-row"><span class="modal-row-label">DBR Amount</span><strong id="sendAmt">—</strong></div>
+        <p>You are about to send a <strong>Death Benefit Reduction notice</strong>. Confirm details and expected signers.</p>
+        <div class="modal-row"><span class="modal-row-label">Insured</span><strong id="mName">—</strong></div>
+        <div class="modal-row"><span class="modal-row-label">Policy #</span><strong id="mPolicy">—</strong></div>
+        <div class="modal-row"><span class="modal-row-label">Policy Year</span><strong id="mYear">—</strong></div>
+        <div class="modal-row"><span class="modal-row-label">DBR Amount</span><strong id="mAmt">—</strong></div>
         <div class="signer-section">
           <div class="signer-section-title">Expected Signers</div>
           <div class="signer-card">
             <span class="signer-badge client"><span class="material-symbols-outlined" style="font-size:12px">person</span>Client Signer</span>
-            <div class="signer-row"><span class="signer-label">Name</span><span id="sendClientName" style="font-weight:500;font-size:13px;">—</span></div>
-            <div class="signer-row"><span class="signer-label">Email</span><span style="font-weight:500;font-size:13px;" id="sendClientEmail">—</span></div>
+            <div class="signer-row"><span class="signer-label">Name</span><span id="mClientName" style="font-weight:500;">—</span></div>
+            <div class="signer-row"><span class="signer-label">Email</span><span id="mClientEmail" style="font-weight:500;">—</span></div>
             <div class="signer-row"><span class="signer-label">Signs</span><span style="font-size:13px;">DBR Election Form</span></div>
           </div>
           <div class="signer-card">
             <span class="signer-badge settlor"><span class="material-symbols-outlined" style="font-size:12px">account_balance</span>Settlor — Hold Harmless</span>
-            <div class="signer-row"><span class="signer-label">Authorized Signer</span><span id="sendSettlorName" style="font-weight:500;font-size:13px;">—</span></div>
-            <div class="signer-row"><span class="signer-label">Email</span><span style="font-weight:500;font-size:13px;" id="sendSettlorEmail">—</span></div>
+            <div class="signer-row"><span class="signer-label">Authorized Signer</span><span id="mSettlorName" style="font-weight:500;">—</span></div>
+            <div class="signer-row"><span class="signer-label">Email</span><span id="mSettlorEmail" style="font-weight:500;">—</span></div>
             <div class="signer-row"><span class="signer-label">Signs</span><span style="font-size:13px;">Hold Harmless & Indemnification</span></div>
           </div>
         </div>
@@ -357,20 +293,20 @@
         <button class="modal-close" onclick="closeModal('resendModal')">close</button>
       </div>
       <div class="modal-body">
-        <p>A DBR notice was already sent. Are you sure you want to <strong>resend</strong> to this client?</p>
-        <div class="modal-row"><span class="modal-row-label">Insured</span><strong id="resendName">—</strong></div>
-        <div class="modal-row"><span class="modal-row-label">Policy #</span><strong id="resendPolicy">—</strong></div>
-        <div class="modal-row"><span class="modal-row-label">Originally sent</span><strong id="resendOrigTime">—</strong></div>
+        <p>A DBR notice was already sent. Are you sure you want to <strong>resend</strong>?</p>
+        <div class="modal-row"><span class="modal-row-label">Insured</span><strong id="rName">—</strong></div>
+        <div class="modal-row"><span class="modal-row-label">Policy #</span><strong id="rPolicy">—</strong></div>
+        <div class="modal-row"><span class="modal-row-label">Originally sent</span><strong id="rOrigTime">—</strong></div>
         <div class="signer-section">
           <div class="signer-section-title">Expected Signers</div>
           <div class="signer-card">
             <span class="signer-badge client"><span class="material-symbols-outlined" style="font-size:12px">person</span>Client Signer</span>
-            <div class="signer-row"><span class="signer-label">Name</span><span id="resendClientName" style="font-weight:500;font-size:13px;">—</span></div>
+            <div class="signer-row"><span class="signer-label">Name</span><span id="rClientName" style="font-weight:500;">—</span></div>
             <div class="signer-row"><span class="signer-label">Signs</span><span style="font-size:13px;">DBR Election Form</span></div>
           </div>
           <div class="signer-card">
             <span class="signer-badge settlor"><span class="material-symbols-outlined" style="font-size:12px">account_balance</span>Settlor — Hold Harmless</span>
-            <div class="signer-row"><span class="signer-label">Authorized Signer</span><span id="resendSettlorName" style="font-weight:500;font-size:13px;">—</span></div>
+            <div class="signer-row"><span class="signer-label">Authorized Signer</span><span id="rSettlorName" style="font-weight:500;">—</span></div>
             <div class="signer-row"><span class="signer-label">Signs</span><span style="font-size:13px;">Hold Harmless & Indemnification</span></div>
           </div>
         </div>
@@ -384,7 +320,7 @@
     </div>
   </div>
 
-  <!-- BULK SEND MODAL -->
+  <!-- BULK MODAL -->
   <div class="modal-overlay" id="bulkModal">
     <div class="modal">
       <div class="modal-header">
@@ -392,11 +328,11 @@
         <button class="modal-close" onclick="closeModal('bulkModal')">close</button>
       </div>
       <div class="modal-body">
-        <p>You are about to send DBR notices to all <strong>4 pending</strong> eligible clients in this tranche. This action cannot be undone.</p>
+        <p>You are about to send DBR notices to all <strong>4 pending</strong> eligible clients in this tranche.</p>
         <div class="modal-row"><span class="modal-row-label">Tranche</span><strong>73</strong></div>
         <div class="modal-row"><span class="modal-row-label">Notices to send</span><strong>4</strong></div>
-        <div class="modal-row"><span class="modal-row-label">Includes overdue</span><strong style="color:var(--error)">1 overdue notice</strong></div>
-        <div class="modal-row"><span class="modal-row-label">Total signers notified</span><strong>8 (client + settlor per policy)</strong></div>
+        <div class="modal-row"><span class="modal-row-label">Includes overdue</span><strong style="color:var(--error)">1 overdue</strong></div>
+        <div class="modal-row"><span class="modal-row-label">Total signers notified</span><strong>8</strong></div>
       </div>
       <div class="modal-footer">
         <button class="btn-outlined" onclick="closeModal('bulkModal')">Cancel</button>
@@ -414,42 +350,38 @@
 
   <div class="proto-banner">
     <span class="material-symbols-outlined" style="font-size:16px;color:var(--primary)">construction</span>
-    <span><strong>Prototype</strong> — DBR Tranche Management · Admin View · ILIA Design Kit v1.0 · NIW / Simplicity Group</span>
+    <span><strong>Prototype</strong> — DBR Column in Tranche Management · Admin View · ILIA Design Kit v1.0 · NIW / Simplicity Group</span>
   </div>
 
   <script>
-    const signerData = {
-      'Bhavin Chandrakant Patel': {email:'b.patel@email.com', settlor:'B. Patel Trust', settlorEmail:'trustee@patel.com'},
-      'Aaron Nazar Johnson': {email:'a.johnson@email.com', settlor:'Aaron N. Johnson', settlorEmail:'a.johnson@email.com'},
-      'Taylor Hollis Cole': {email:'t.cole@email.com', settlor:'Cole Family Trust', settlorEmail:'cole.trust@email.com'},
-      'Mai Jia Yang': {email:'m.yang@email.com', settlor:'Mai Jia Yang', settlorEmail:'m.yang@email.com'},
-      'Dung Quang Pham': {email:'d.pham@email.com', settlor:'Pham Holdings LLC', settlorEmail:'auth@phamholdings.com'},
-      'Sandra Lee Morales': {email:'s.morales@email.com', settlor:'Sandra Lee Morales', settlorEmail:'s.morales@email.com'},
+    const signers = {
+      'Bhavin Chandrakant Patel':{email:'b.patel@email.com',settlor:'B. Patel Trust',settlorEmail:'trustee@patel.com'},
+      'Aaron Nazar Johnson':{email:'a.johnson@email.com',settlor:'Aaron N. Johnson',settlorEmail:'a.johnson@email.com'},
+      'Taylor Hollis Cole':{email:'t.cole@email.com',settlor:'Cole Family Trust',settlorEmail:'cole.trust@email.com'},
+      'Mai Jia Yang':{email:'m.yang@email.com',settlor:'Mai Jia Yang',settlorEmail:'m.yang@email.com'},
+      'Dung Quang Pham':{email:'d.pham@email.com',settlor:'Pham Holdings LLC',settlorEmail:'auth@phamholdings.com'},
+      'Sandra Lee Morales':{email:'s.morales@email.com',settlor:'Sandra Lee Morales',settlorEmail:'s.morales@email.com'},
     };
 
-    function setTab(el, type) {
-      document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
-      el.classList.add('active');
-    }
     function openSendModal(name, policy, year, amt) {
-      const s = signerData[name] || {};
-      document.getElementById('sendName').textContent = name;
-      document.getElementById('sendPolicy').textContent = policy;
-      document.getElementById('sendYear').textContent = year;
-      document.getElementById('sendAmt').textContent = amt;
-      document.getElementById('sendClientName').textContent = name;
-      document.getElementById('sendClientEmail').textContent = s.email || '—';
-      document.getElementById('sendSettlorName').textContent = s.settlor || name;
-      document.getElementById('sendSettlorEmail').textContent = s.settlorEmail || s.email || '—';
+      const s = signers[name] || {};
+      document.getElementById('mName').textContent = name;
+      document.getElementById('mPolicy').textContent = policy;
+      document.getElementById('mYear').textContent = year;
+      document.getElementById('mAmt').textContent = amt;
+      document.getElementById('mClientName').textContent = name;
+      document.getElementById('mClientEmail').textContent = s.email || '—';
+      document.getElementById('mSettlorName').textContent = s.settlor || name;
+      document.getElementById('mSettlorEmail').textContent = s.settlorEmail || '—';
       document.getElementById('sendModal').classList.add('open');
     }
     function openResendModal(name, policy, origTime) {
-      const s = signerData[name] || {};
-      document.getElementById('resendName').textContent = name;
-      document.getElementById('resendPolicy').textContent = policy;
-      document.getElementById('resendOrigTime').textContent = origTime;
-      document.getElementById('resendClientName').textContent = name;
-      document.getElementById('resendSettlorName').textContent = s.settlor || name;
+      const s = signers[name] || {};
+      document.getElementById('rName').textContent = name;
+      document.getElementById('rPolicy').textContent = policy;
+      document.getElementById('rOrigTime').textContent = origTime;
+      document.getElementById('rClientName').textContent = name;
+      document.getElementById('rSettlorName').textContent = s.settlor || name;
       document.getElementById('resendModal').classList.add('open');
     }
     function openBulkModal() { document.getElementById('bulkModal').classList.add('open'); }
