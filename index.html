@@ -1,425 +1,489 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8"/>
-  <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
-  <title>ILIA — DBR Single Column in Tranche Management</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com"/>
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
-  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet"/>
-  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" rel="stylesheet"/>
-  <style>
-    :root {
-      --primary:#2A62E4;--on-primary:#fff;--primary-container:#DBE1FF;
-      --on-primary-container:#001257;--surface:#FDFBFF;
-      --surface-container-low:#F3F3FA;--surface-container:#EDEDF4;
-      --surface-container-high:#E7E8EE;--on-surface:#1A1B1F;
-      --on-surface-variant:#44464F;--outline:#74777F;--outline-variant:#C4C6D0;
-      --success:#18A862;--success-container:#C6F5D6;
-      --warning:#E6A82E;--warning-container:#FCE9C2;
-      --error:#BA1A1A;--error-container:#FFDAD6;
-    }
-    *{box-sizing:border-box;margin:0;padding:0;}
-    body{font-family:'Roboto',system-ui,sans-serif;background:var(--surface-container-low);color:var(--on-surface);min-height:100vh;display:flex;flex-direction:column;}
-    .material-symbols-outlined{font-family:'Material Symbols Outlined';line-height:1;}
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>ILIA — Tranche Management · DBR Column</title>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20,400,0,0" rel="stylesheet"/>
+<style>
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'Roboto',sans-serif;background:#f5f5f5;min-height:100vh;}
 
-    .app-bar{background:var(--primary);color:#fff;display:flex;align-items:center;gap:16px;padding:0 24px;height:64px;flex-shrink:0;box-shadow:0 2px 8px rgba(0,0,0,0.15);}
-    .app-bar-logo{font-size:20px;font-weight:700;}
-    .app-bar-divider{width:1px;height:24px;background:rgba(255,255,255,0.3);}
-    .app-bar-title{font-size:18px;font-weight:500;flex:1;}
-    .app-bar-sub{font-size:13px;opacity:0.75;}
-    .avatar{width:36px;height:36px;border-radius:50%;background:rgba(255,255,255,0.25);display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:600;}
+/* ── Top bar ── */
+.topbar{background:#2A62E4;color:#fff;display:flex;align-items:center;gap:16px;padding:0 20px;height:48px;}
+.topbar-brand{font-size:15px;font-weight:700;letter-spacing:.5px;}
+.topbar-divider{opacity:.4;font-size:18px;}
+.topbar-page{font-size:13px;font-weight:400;opacity:.9;}
+.topbar-user{margin-left:auto;width:32px;height:32px;background:rgba(255,255,255,.25);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;}
 
-    .content{flex:1;padding:28px 32px;}
-    .page-title{font-size:22px;font-weight:500;margin-bottom:4px;}
-    .page-sub{font-size:13px;color:var(--on-surface-variant);margin-bottom:20px;}
+/* ── Page ── */
+.page{padding:24px;}
+.page-title{font-size:20px;font-weight:500;color:#1a1a1a;margin-bottom:4px;}
+.page-sub{font-size:13px;color:#757575;margin-bottom:16px;}
 
-    .context-label{display:inline-flex;align-items:center;gap:6px;background:var(--primary-container);color:var(--on-primary-container);padding:6px 14px;border-radius:8px;font-size:12px;font-weight:500;margin-bottom:20px;}
-    .context-label .material-symbols-outlined{font-size:16px;color:var(--primary);}
+/* ── Info banner ── */
+.banner{background:#E3F2FD;border:1px solid #90CAF9;border-radius:4px;padding:10px 14px;font-size:12px;color:#1565C0;display:flex;align-items:center;gap:8px;margin-bottom:20px;}
+.banner .icon{font-size:16px;}
 
-    .card{background:var(--surface);border:1px solid var(--outline-variant);border-radius:16px;overflow:hidden;}
-    .card-header{display:flex;align-items:center;justify-content:space-between;padding:16px 20px;border-bottom:1px solid var(--outline-variant);}
-    .card-title{font-size:15px;font-weight:500;}
-    .card-sub{font-size:12px;color:var(--on-surface-variant);margin-top:2px;}
+/* ── Table card ── */
+.card{background:#fff;border-radius:4px;box-shadow:0 1px 3px rgba(0,0,0,0.12);overflow:hidden;}
+.card-header{display:flex;align-items:center;justify-content:space-between;padding:14px 20px;border-bottom:1px solid #e0e0e0;}
+.card-title{font-size:14px;font-weight:500;color:#1a1a1a;}
+.card-sub{font-size:12px;color:#9e9e9e;margin-top:2px;}
 
-    .data-table{width:100%;border-collapse:collapse;}
-    .data-table th{text-align:left;padding:10px 18px;font-size:11px;font-weight:500;letter-spacing:0.4px;color:var(--on-surface-variant);background:var(--surface-container-low);border-bottom:1px solid var(--outline-variant);white-space:nowrap;}
-    .data-table td{padding:14px 18px;font-size:13px;border-bottom:1px solid var(--outline-variant);vertical-align:middle;}
-    .data-table tr:last-child td{border-bottom:none;}
-    .data-table tr:hover td{background:var(--surface-container-low);}
+/* ── Bulk send button ── */
+.btn-bulk{display:inline-flex;align-items:center;gap:6px;background:#2A62E4;color:#fff;border:none;border-radius:4px;padding:8px 14px;font-size:12px;font-weight:500;font-family:'Roboto',sans-serif;cursor:pointer;transition:background .15s;}
+.btn-bulk:hover{background:#1a52d4;}
+.btn-bulk .icon{font-size:15px;}
 
-    /* SINGLE DBR COLUMN — highlighted */
-    .data-table th.dbr-col{background:#EDE7F6;color:#4527A0;border-left:2px solid #9C27B0;min-width:200px;}
-    .data-table td.dbr-col{border-left:2px solid #E1BEE7;background:#FAF8FF;min-width:200px;}
-    .data-table tr:hover td.dbr-col{background:#F3E5F5;}
+/* ── Legend ── */
+.legend{display:flex;flex-wrap:wrap;gap:10px;padding:10px 20px;border-bottom:1px solid #f0f0f0;background:#fafafa;}
+.legend-item{display:flex;align-items:center;gap:5px;font-size:11px;color:#555;}
+.legend-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0;}
 
-    .insured-name{font-weight:500;color:var(--primary);cursor:pointer;}
-    .insured-name:hover{text-decoration:underline;}
-    .insured-sub{font-size:11px;color:var(--on-surface-variant);margin-top:2px;}
+/* ── Table ── */
+table{width:100%;border-collapse:collapse;}
+thead tr{background:#fafafa;}
+th{text-align:left;padding:10px 16px;font-size:11px;font-weight:500;color:#757575;text-transform:uppercase;letter-spacing:.4px;border-bottom:1px solid #e0e0e0;white-space:nowrap;}
+td{padding:12px 16px;border-bottom:1px solid #f0f0f0;vertical-align:middle;}
+tr:last-child td{border-bottom:none;}
+tr:hover td{background:#fafafa;}
 
-    /* DBR CELL — stacks status + date + button vertically */
-    .dbr-cell{display:flex;flex-direction:column;gap:6px;align-items:flex-start;}
+/* DBR column highlight */
+th.dbr-col{background:#F3E5F5;color:#6A1B9A;border-left:2px solid #CE93D8;}
+td.dbr-col{border-left:2px solid #E1BEE7;min-width:180px;}
 
-    /* STATUS CHIPS */
-    .dbr-chip{display:inline-flex;align-items:center;gap:5px;padding:3px 10px;border-radius:20px;font-size:11px;font-weight:500;white-space:nowrap;}
-    .dbr-chip .material-symbols-outlined{font-size:13px;}
-    .dbr-chip.overdue{background:var(--error-container);color:#410002;}
-    .dbr-chip.sent{background:var(--success-container);color:#002810;}
-    .dbr-chip.pending{background:var(--warning-container);color:#3D2C00;}
-    .dbr-chip.not-eligible{background:var(--surface-container-high);color:var(--on-surface-variant);}
+/* Row highlight states */
+tr.row-overdue td{background:#FFF8F8;}
+tr.row-overdue td.dbr-col{background:#FFEBEE;}
+tr.row-overdue:hover td{background:#FFF0F0;}
 
-    /* DATE TEXT */
-    .dbr-date{font-size:11px;font-weight:500;}
-    .dbr-date.sent{color:var(--success);}
-    .dbr-date.overdue{color:var(--error);}
-    .dbr-date.pending{color:var(--on-surface-variant);}
-    .dbr-date.na{color:var(--on-surface-variant);}
+/* ── Insured cell ── */
+.insured-name{font-size:13px;font-weight:500;color:#2A62E4;text-decoration:none;}
+.insured-name:hover{text-decoration:underline;}
+.insured-meta{font-size:11px;color:#9e9e9e;margin-top:2px;}
 
-    /* ACTION BUTTONS */
-    .action-btn{display:inline-flex;align-items:center;gap:4px;padding:5px 12px;border-radius:14px;font-size:11px;font-weight:500;font-family:'Roboto',sans-serif;cursor:pointer;border:none;white-space:nowrap;transition:opacity 0.15s;}
-    .action-btn:hover{opacity:0.85;}
-    .action-btn.send{background:var(--primary);color:#fff;}
-    .action-btn.send-now{background:var(--error);color:#fff;}
-    .action-btn.resend{background:var(--surface-container-high);color:var(--on-surface);border:1px solid var(--outline-variant);}
-    .action-btn .material-symbols-outlined{font-size:13px;}
+.cell-main{font-size:13px;color:#1a1a1a;}
+.cell-sub{font-size:11px;color:#9e9e9e;margin-top:1px;}
 
-    /* BULK BUTTON */
-    .btn-primary{display:inline-flex;align-items:center;gap:6px;padding:9px 18px;background:var(--primary);color:#fff;border:none;border-radius:20px;font-size:13px;font-weight:500;font-family:'Roboto',sans-serif;cursor:pointer;white-space:nowrap;}
-    .btn-primary:hover{opacity:0.88;}
-    .btn-outlined{display:inline-flex;align-items:center;gap:6px;padding:8px 16px;background:transparent;color:var(--primary);border:1.5px solid var(--primary);border-radius:20px;font-size:13px;font-weight:500;font-family:'Roboto',sans-serif;cursor:pointer;}
-    .btn-outlined:hover{background:var(--primary-container);}
+/* ── DBR status chips ── */
+.dbr-cell{display:flex;flex-direction:column;gap:5px;}
 
-    /* MODAL */
-    .modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.45);z-index:100;display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity 0.2s;}
-    .modal-overlay.open{opacity:1;pointer-events:all;}
-    .modal{background:var(--surface);border-radius:20px;box-shadow:0 24px 64px rgba(0,0,0,0.2);width:500px;max-width:94vw;transform:scale(0.93) translateY(12px);transition:transform 0.22s cubic-bezier(0.34,1.56,0.64,1);overflow:hidden;max-height:90vh;display:flex;flex-direction:column;}
-    .modal-overlay.open .modal{transform:scale(1) translateY(0);}
-    .modal-header{background:var(--primary);color:#fff;padding:18px 22px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0;}
-    .modal-header h3{font-size:15px;font-weight:500;margin:0;}
-    .modal-close{width:30px;height:30px;border-radius:50%;background:rgba(255,255,255,0.15);border:none;color:#fff;cursor:pointer;display:flex;align-items:center;justify-content:center;font-family:'Material Symbols Outlined';font-size:18px;line-height:1;}
-    .modal-close:hover{background:rgba(255,255,255,0.28);}
-    .modal-body{padding:22px 24px;overflow-y:auto;}
-    .modal-body p{font-size:14px;line-height:1.6;margin-bottom:16px;}
-    .modal-row{display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-bottom:1px solid var(--outline-variant);font-size:13px;gap:16px;}
-    .modal-row:last-of-type{border-bottom:none;}
-    .modal-row-label{color:var(--on-surface-variant);}
-    .signer-section{margin-top:16px;}
-    .signer-section-title{font-size:11px;font-weight:500;color:var(--primary);text-transform:uppercase;letter-spacing:0.6px;margin-bottom:10px;padding-bottom:6px;border-bottom:1px solid var(--primary-container);}
-    .signer-card{background:var(--surface-container-low);border:1px solid var(--outline-variant);border-radius:10px;padding:12px 16px;margin-bottom:10px;}
-    .signer-badge{display:inline-flex;align-items:center;gap:4px;padding:2px 8px;border-radius:12px;font-size:11px;font-weight:500;margin-bottom:8px;}
-    .signer-badge.client{background:var(--primary-container);color:var(--on-primary-container);}
-    .signer-badge.settlor{background:var(--warning-container);color:#3D2C00;}
-    .signer-row{display:flex;justify-content:space-between;font-size:13px;padding:3px 0;}
-    .signer-label{color:var(--on-surface-variant);font-size:12px;}
-    .modal-footer{padding:16px 24px;border-top:1px solid var(--outline-variant);display:flex;gap:10px;justify-content:flex-end;flex-shrink:0;}
+.chip{display:inline-flex;align-items:center;gap:4px;border-radius:12px;padding:3px 9px;font-size:11px;font-weight:500;width:fit-content;white-space:nowrap;}
+.chip .cicon{font-size:13px;line-height:13px;}
 
-    .toast{position:fixed;bottom:80px;left:50%;transform:translateX(-50%) translateY(16px);background:#1A1B1F;color:#fff;padding:12px 24px;border-radius:24px;font-size:14px;font-weight:500;display:flex;align-items:center;gap:8px;opacity:0;transition:opacity 0.2s,transform 0.2s;pointer-events:none;z-index:200;white-space:nowrap;}
-    .toast.show{opacity:1;transform:translateX(-50%) translateY(0);}
-    .toast .material-symbols-outlined{font-size:18px;color:var(--success);}
-    .proto-banner{background:var(--primary-container);border-top:1px solid var(--outline-variant);padding:10px 24px;display:flex;align-items:center;gap:10px;font-size:12px;color:var(--on-primary-container);flex-shrink:0;}
-  </style>
+/* Not eligible yet — grey */
+.chip-noteligible{background:#F5F5F5;color:#757575;border:1px solid #E0E0E0;}
+/* Eligible pending send — blue */
+.chip-eligible{background:#E3F2FD;color:#1565C0;border:1px solid #90CAF9;}
+/* Notice sent — amber */
+.chip-sent{background:#FFF8E1;color:#E65100;border:1px solid #FFCC02;}
+/* Accepted YES — green */
+.chip-accepted{background:#E8F5E9;color:#1B5E20;border:1px solid #A5D6A7;}
+/* Declined, re-offer — orange */
+.chip-declined{background:#FFF3E0;color:#BF360C;border:1px solid #FFCC80;}
+/* Declined final year — deep orange */
+.chip-declined-final{background:#FBE9E7;color:#BF360C;border:1px solid #FFAB91;}
+/* Overdue — red */
+.chip-overdue{background:#FFEBEE;color:#B71C1C;border:1px solid #EF9A9A;}
+
+.chip-meta{font-size:11px;color:#9e9e9e;}
+.chip-meta.red{color:#C62828;}
+.chip-meta.green{color:#2E7D32;}
+.chip-meta.orange{color:#E65100;}
+
+/* ── Action buttons ── */
+.btn-send{display:inline-flex;align-items:center;gap:4px;background:#2A62E4;color:#fff;border:none;border-radius:3px;padding:5px 10px;font-size:11px;font-weight:500;font-family:'Roboto',sans-serif;cursor:pointer;transition:background .15s;white-space:nowrap;}
+.btn-send:hover{background:#1a52d4;}
+.btn-send-now{background:#C62828;}
+.btn-send-now:hover{background:#B71C1C;}
+.btn-resend{display:inline-flex;align-items:center;gap:4px;background:none;border:1px solid #BDBDBD;border-radius:3px;padding:4px 9px;font-size:11px;font-weight:500;font-family:'Roboto',sans-serif;color:#555;cursor:pointer;transition:background .15s;white-space:nowrap;}
+.btn-resend:hover{background:#f5f5f5;}
+.btn-view{display:inline-flex;align-items:center;gap:4px;background:none;border:1px solid #A5D6A7;border-radius:3px;padding:4px 9px;font-size:11px;font-weight:500;font-family:'Roboto',sans-serif;color:#2E7D32;cursor:pointer;transition:background .15s;white-space:nowrap;}
+.btn-view:hover{background:#F1F8E9;}
+.btn-icon{font-size:13px;line-height:13px;}
+
+/* ── Dialog ── */
+.overlay{position:fixed;inset:0;background:rgba(0,0,0,.32);display:none;align-items:center;justify-content:center;z-index:100;}
+.overlay.open{display:flex;}
+.dialog{background:#fff;border-radius:4px;box-shadow:0 11px 15px rgba(0,0,0,.2);max-width:420px;width:94%;padding:24px 24px 16px;}
+.dlg-title{font-size:16px;font-weight:500;color:#1a1a1a;margin-bottom:8px;display:flex;align-items:center;gap:8px;}
+.dlg-title .icon{font-size:20px;}
+.dlg-body{font-size:13px;color:#424242;line-height:1.6;margin-bottom:6px;}
+.dlg-detail{background:#F5F5F5;border-radius:4px;padding:10px 14px;margin:12px 0;font-size:12px;}
+.dlg-detail-row{display:flex;gap:8px;margin-bottom:4px;}
+.dlg-detail-row:last-child{margin-bottom:0;}
+.dlg-label{color:#757575;min-width:90px;}
+.dlg-val{color:#1a1a1a;font-weight:500;}
+.dlg-warn{background:#FFF8E1;border-left:3px solid #FFC107;border-radius:2px;padding:8px 12px;font-size:12px;color:#5a3e00;margin:10px 0;}
+.dlg-actions{display:flex;justify-content:flex-end;gap:8px;margin-top:16px;}
+.btn-dlg-cancel{background:none;border:none;border-radius:4px;padding:8px 16px;font-size:13px;font-weight:500;font-family:'Roboto',sans-serif;color:#2A62E4;cursor:pointer;}
+.btn-dlg-cancel:hover{background:#F0F4FF;}
+.btn-dlg-ok{background:#2A62E4;border:none;border-radius:4px;padding:8px 16px;font-size:13px;font-weight:500;font-family:'Roboto',sans-serif;color:#fff;cursor:pointer;}
+.btn-dlg-ok:hover{background:#1a52d4;}
+.btn-dlg-ok.red{background:#C62828;}
+.btn-dlg-ok.red:hover{background:#B71C1C;}
+
+/* ── Toast ── */
+.toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(60px);background:#323232;color:#fff;padding:10px 20px;border-radius:4px;font-size:13px;display:flex;align-items:center;gap:8px;opacity:0;transition:opacity .22s,transform .25s;pointer-events:none;z-index:200;white-space:nowrap;}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0);}
+.toast .icon{font-size:16px;color:#69F0AE;}
+</style>
 </head>
 <body>
 
-  <div class="app-bar">
-    <span class="app-bar-logo">ILIA</span>
-    <div class="app-bar-divider"></div>
-    <span class="app-bar-title">Tranche Management — DBR Column</span>
-    <span class="app-bar-sub">Admin View</span>
-    <div class="avatar">JA</div>
+<div class="topbar">
+  <span class="topbar-brand">ILIA</span>
+  <span class="topbar-divider">|</span>
+  <span class="topbar-page">Tranche Management — DBR Column</span>
+  <span class="topbar-user">JA</span>
+</div>
+
+<div class="page">
+  <div class="page-title">Manage Tranche — DBR Overview</div>
+  <div class="page-sub">Proposed DBR status column — Tranche Management participant table</div>
+
+  <div class="banner">
+    <span class="material-symbols-outlined icon">info</span>
+    The <strong>DBR</strong> column reflects each client's current status in the Death Benefit Reduction lifecycle — from pre-eligibility through acceptance or final decline.
   </div>
 
-  <div class="content">
-    <div class="page-title">Manage Tranche — DBR Overview</div>
-    <div class="page-sub">Proposed single DBR column addition to existing Tranche Management participant table</div>
-
-    <div class="context-label">
-      <span class="material-symbols-outlined">info</span>
-      Prototype focus: The highlighted <strong>DBR</strong> column consolidates status, notice date, and action into one space-efficient column
+  <div class="card">
+    <div class="card-header">
+      <div>
+        <div class="card-title">Participants — Tranche 73</div>
+        <div class="card-sub">DBR status column reflects lifecycle state per client</div>
+      </div>
+      <button class="btn-bulk" onclick="openBulk()">
+        <span class="material-symbols-outlined icon">send</span>
+        Send All Pending Notices
+      </button>
     </div>
 
-    <div class="card">
-      <div class="card-header">
-        <div>
-          <div class="card-title">Participants — Tranche 73</div>
-          <div class="card-sub">Single DBR column shown highlighted in purple</div>
-        </div>
-        <button class="btn-primary" onclick="openBulkModal()">
-          <span class="material-symbols-outlined" style="font-size:16px">send</span>
-          Send All Pending Notices
-        </button>
-      </div>
+    <!-- Legend -->
+    <div class="legend">
+      <div class="legend-item"><span class="legend-dot" style="background:#BDBDBD"></span>Not Yet Eligible</div>
+      <div class="legend-item"><span class="legend-dot" style="background:#1565C0"></span>Eligible — Pending</div>
+      <div class="legend-item"><span class="legend-dot" style="background:#E65100"></span>Notice Sent</div>
+      <div class="legend-item"><span class="legend-dot" style="background:#B71C1C"></span>Overdue</div>
+      <div class="legend-item"><span class="legend-dot" style="background:#2E7D32"></span>DBR Accepted</div>
+      <div class="legend-item"><span class="legend-dot" style="background:#BF360C"></span>Declined — Re-offer</div>
+      <div class="legend-item"><span class="legend-dot" style="background:#880E4F"></span>Declined — Final Year</div>
+    </div>
 
-      <table class="data-table">
-        <thead>
-          <tr>
-            <th>Insured</th>
-            <th>Policy #</th>
-            <th>Policy Year</th>
-            <th>DBR Amount</th>
-            <th>Anniversary Date</th>
-            <th class="dbr-col">⚡ DBR</th>
-          </tr>
-        </thead>
-        <tbody>
+    <table>
+      <thead>
+        <tr>
+          <th>Insured</th>
+          <th>Policy #</th>
+          <th>Policy Year</th>
+          <th>DBR Amount</th>
+          <th>Anniversary Date</th>
+          <th class="dbr-col">⚡ DBR Status</th>
+        </tr>
+      </thead>
+      <tbody>
 
-          <!-- OVERDUE -->
-          <tr>
-            <td><div class="insured-name">Bhavin Chandrakant Patel</div><div class="insured-sub">Individual · Kai-Zen · InForce</div></td>
-            <td>LS22801234</td><td>Year 11</td><td>$187,450</td><td>03/01/2026</td>
-            <td class="dbr-col">
-              <div class="dbr-cell">
-                <span class="dbr-chip overdue"><span class="material-symbols-outlined">warning</span>Overdue</span>
-                <span class="dbr-date overdue">Not sent — 92 days past</span>
-                <button class="action-btn send-now" onclick="openSendModal('Bhavin Chandrakant Patel','LS22801234','Year 11','$187,450')">
-                  <span class="material-symbols-outlined">send</span>Send Now
-                </button>
-              </div>
-            </td>
-          </tr>
+        <!-- 1. Pre-Year 11 — Not Yet Eligible -->
+        <tr>
+          <td>
+            <a class="insured-name" href="#">James R. Whitfield</a>
+            <div class="insured-meta">Individual · Kai-Zen · InForce</div>
+          </td>
+          <td><span class="cell-main">LS22801230</span></td>
+          <td><span class="cell-main">Year 7</span></td>
+          <td><span class="cell-main">—</span></td>
+          <td><span class="cell-main">03/15/2030</span><div class="cell-sub">Yr 11 in 4 yrs</div></td>
+          <td class="dbr-col">
+            <div class="dbr-cell">
+              <span class="chip chip-noteligible">
+                <span class="material-symbols-outlined cicon">schedule</span>Not Yet Eligible
+              </span>
+              <span class="chip-meta">Eligible at Year 11 · 2030</span>
+            </div>
+          </td>
+        </tr>
 
-          <!-- ELIGIBLE PENDING -->
-          <tr>
-            <td><div class="insured-name">Aaron Nazar Johnson</div><div class="insured-sub">Individual · Kai-Zen · InForce</div></td>
-            <td>LS22801235</td><td>Year 12</td><td>$142,300</td><td>04/15/2026</td>
-            <td class="dbr-col">
-              <div class="dbr-cell">
-                <span class="dbr-chip pending"><span class="material-symbols-outlined">schedule</span>Eligible — Pending</span>
-                <span class="dbr-date pending">Not yet sent</span>
-                <button class="action-btn send" onclick="openSendModal('Aaron Nazar Johnson','LS22801235','Year 12','$142,300')">
-                  <span class="material-symbols-outlined">send</span>Send Notice
-                </button>
-              </div>
-            </td>
-          </tr>
+        <!-- 2. Pre-Year 11 — approaching -->
+        <tr>
+          <td>
+            <a class="insured-name" href="#">Patricia Ann Nguyen</a>
+            <div class="insured-meta">Individual · Kai-Zen · InForce</div>
+          </td>
+          <td><span class="cell-main">LS22801231</span></td>
+          <td><span class="cell-main">Year 9</span></td>
+          <td><span class="cell-main">—</span></td>
+          <td><span class="cell-main">11/20/2028</span><div class="cell-sub">Yr 11 in ~2 yrs</div></td>
+          <td class="dbr-col">
+            <div class="dbr-cell">
+              <span class="chip chip-noteligible">
+                <span class="material-symbols-outlined cicon">schedule</span>Not Yet Eligible
+              </span>
+              <span class="chip-meta">Eligible at Year 11 · 2028</span>
+            </div>
+          </td>
+        </tr>
 
-          <!-- NOTICE SENT -->
-          <tr>
-            <td><div class="insured-name">Taylor Hollis Cole</div><div class="insured-sub">Individual · Kai-Zen · InForce</div></td>
-            <td>LS22801236</td><td>Year 11</td><td>$201,000</td><td>05/01/2026</td>
-            <td class="dbr-col">
-              <div class="dbr-cell">
-                <span class="dbr-chip sent"><span class="material-symbols-outlined">check_circle</span>Notice Sent</span>
-                <span class="dbr-date sent">Sent Apr 28, 2026</span>
-                <button class="action-btn resend" onclick="openResendModal('Taylor Hollis Cole','LS22801236','Apr 28, 2026')">
-                  <span class="material-symbols-outlined">refresh</span>Resend
-                </button>
-              </div>
-            </td>
-          </tr>
+        <!-- 3. Overdue — Year 11, notice not sent, past anniversary -->
+        <tr class="row-overdue">
+          <td>
+            <a class="insured-name" href="#">Bhavin Chandrakant Patel</a>
+            <div class="insured-meta">Individual · Kai-Zen · InForce</div>
+          </td>
+          <td><span class="cell-main">LS22801234</span></td>
+          <td><span class="cell-main">Year 11</span></td>
+          <td><span class="cell-main">$187,450</span></td>
+          <td><span class="cell-main">03/01/2026</span></td>
+          <td class="dbr-col">
+            <div class="dbr-cell">
+              <span class="chip chip-overdue">
+                <span class="material-symbols-outlined cicon">warning</span>Overdue
+              </span>
+              <span class="chip-meta red">Notice not sent · 92 days past</span>
+              <button class="btn-send btn-send-now" onclick="openSend('Bhavin Chandrakant Patel','LS22801234','$187,450','03/01/2026','Year 11', false)">
+                <span class="material-symbols-outlined btn-icon">send</span>Send Now
+              </button>
+            </div>
+          </td>
+        </tr>
 
-          <!-- ELIGIBLE PENDING -->
-          <tr>
-            <td><div class="insured-name">Mai Jia Yang</div><div class="insured-sub">Individual · Kai-Zen · InForce</div></td>
-            <td>LS22801237</td><td>Year 13</td><td>$95,750</td><td>06/10/2026</td>
-            <td class="dbr-col">
-              <div class="dbr-cell">
-                <span class="dbr-chip pending"><span class="material-symbols-outlined">schedule</span>Eligible — Pending</span>
-                <span class="dbr-date pending">Not yet sent</span>
-                <button class="action-btn send" onclick="openSendModal('Mai Jia Yang','LS22801237','Year 13','$95,750')">
-                  <span class="material-symbols-outlined">send</span>Send Notice
-                </button>
-              </div>
-            </td>
-          </tr>
+        <!-- 4. Eligible — Year 12, notice not sent -->
+        <tr>
+          <td>
+            <a class="insured-name" href="#">Aaron Nazar Johnson</a>
+            <div class="insured-meta">Individual · Kai-Zen · InForce</div>
+          </td>
+          <td><span class="cell-main">LS22801235</span></td>
+          <td><span class="cell-main">Year 12</span></td>
+          <td><span class="cell-main">$142,300</span></td>
+          <td><span class="cell-main">04/15/2026</span></td>
+          <td class="dbr-col">
+            <div class="dbr-cell">
+              <span class="chip chip-eligible">
+                <span class="material-symbols-outlined cicon">circle</span>Eligible — Pending
+              </span>
+              <span class="chip-meta">Notice not yet sent</span>
+              <button class="btn-send" onclick="openSend('Aaron Nazar Johnson','LS22801235','$142,300','04/15/2026','Year 12', false)">
+                <span class="material-symbols-outlined btn-icon">send</span>Send Notice
+              </button>
+            </div>
+          </td>
+        </tr>
 
-          <!-- NOTICE SENT -->
-          <tr>
-            <td><div class="insured-name">Dung Quang Pham</div><div class="insured-sub">Individual · Kai-Zen · InForce</div></td>
-            <td>LS22801238</td><td>Year 14</td><td>$167,890</td><td>07/22/2026</td>
-            <td class="dbr-col">
-              <div class="dbr-cell">
-                <span class="dbr-chip sent"><span class="material-symbols-outlined">check_circle</span>Notice Sent</span>
-                <span class="dbr-date sent">Sent May 1, 2026</span>
-                <button class="action-btn resend" onclick="openResendModal('Dung Quang Pham','LS22801238','May 1, 2026')">
-                  <span class="material-symbols-outlined">refresh</span>Resend
-                </button>
-              </div>
-            </td>
-          </tr>
+        <!-- 5. Notice Sent — awaiting response -->
+        <tr>
+          <td>
+            <a class="insured-name" href="#">Taylor Hollis Cole</a>
+            <div class="insured-meta">Individual · Kai-Zen · InForce</div>
+          </td>
+          <td><span class="cell-main">LS22801236</span></td>
+          <td><span class="cell-main">Year 11</span></td>
+          <td><span class="cell-main">$201,000</span></td>
+          <td><span class="cell-main">05/01/2026</span></td>
+          <td class="dbr-col">
+            <div class="dbr-cell">
+              <span class="chip chip-sent">
+                <span class="material-symbols-outlined cicon">mark_email_read</span>Notice Sent
+              </span>
+              <span class="chip-meta orange">Sent Apr 28, 2026 · Awaiting response</span>
+              <button class="btn-resend" onclick="openResend('Taylor Hollis Cole','LS22801236')">
+                <span class="material-symbols-outlined btn-icon">refresh</span>Resend
+              </button>
+            </div>
+          </td>
+        </tr>
 
-          <!-- ELIGIBLE PENDING -->
-          <tr>
-            <td><div class="insured-name">Sandra Lee Morales</div><div class="insured-sub">Individual · Kai-Zen · InForce</div></td>
-            <td>LS22801239</td><td>Year 15</td><td>$223,100</td><td>08/05/2026</td>
-            <td class="dbr-col">
-              <div class="dbr-cell">
-                <span class="dbr-chip pending"><span class="material-symbols-outlined">schedule</span>Eligible — Pending</span>
-                <span class="dbr-date pending">Not yet sent</span>
-                <button class="action-btn send" onclick="openSendModal('Sandra Lee Morales','LS22801239','Year 15','$223,100')">
-                  <span class="material-symbols-outlined">send</span>Send Notice
-                </button>
-              </div>
-            </td>
-          </tr>
+        <!-- 6. DBR Accepted — YES -->
+        <tr>
+          <td>
+            <a class="insured-name" href="#">Mai Jia Yang</a>
+            <div class="insured-meta">Individual · Kai-Zen · InForce</div>
+          </td>
+          <td><span class="cell-main">LS22801237</span></td>
+          <td><span class="cell-main">Year 13</span></td>
+          <td><span class="cell-main">$95,750</span></td>
+          <td><span class="cell-main">06/10/2026</span></td>
+          <td class="dbr-col">
+            <div class="dbr-cell">
+              <span class="chip chip-accepted">
+                <span class="material-symbols-outlined cicon">check_circle</span>DBR Accepted
+              </span>
+              <span class="chip-meta green">Elected YES · May 22, 2026</span>
+              <button class="btn-view">
+                <span class="material-symbols-outlined btn-icon">open_in_new</span>View Form
+              </button>
+            </div>
+          </td>
+        </tr>
 
-          <!-- NOT ELIGIBLE -->
-          <tr>
-            <td><div class="insured-name">James R. Thompson</div><div class="insured-sub">Individual · Kai-Zen · InForce</div></td>
-            <td>LS22801240</td><td>Year 8</td><td>—</td><td>09/12/2026</td>
-            <td class="dbr-col">
-              <div class="dbr-cell">
-                <span class="dbr-chip not-eligible"><span class="material-symbols-outlined">remove_circle</span>Not Eligible</span>
-                <span class="dbr-date na">Available Year 11+</span>
-              </div>
-            </td>
-          </tr>
+        <!-- 7. Declined — Re-offer Year 14 -->
+        <tr>
+          <td>
+            <a class="insured-name" href="#">Dung Quang Pham</a>
+            <div class="insured-meta">Individual · Kai-Zen · InForce</div>
+          </td>
+          <td><span class="cell-main">LS22801238</span></td>
+          <td><span class="cell-main">Year 13</span></td>
+          <td><span class="cell-main">$167,890</span></td>
+          <td><span class="cell-main">07/22/2026</span></td>
+          <td class="dbr-col">
+            <div class="dbr-cell">
+              <span class="chip chip-declined">
+                <span class="material-symbols-outlined cicon">do_not_disturb_on</span>Declined — Yr 13
+              </span>
+              <span class="chip-meta orange">Re-offer at Year 14 · Jul 2026</span>
+              <button class="btn-send" onclick="openSend('Dung Quang Pham','LS22801238','$167,890','07/22/2026','Year 14', true)">
+                <span class="material-symbols-outlined btn-icon">send</span>Send Yr 14 Notice
+              </button>
+            </div>
+          </td>
+        </tr>
 
-        </tbody>
-      </table>
+        <!-- 8. Declined Final Year (Year 15) -->
+        <tr>
+          <td>
+            <a class="insured-name" href="#">Sandra Lee Morales</a>
+            <div class="insured-meta">Individual · Kai-Zen · InForce</div>
+          </td>
+          <td><span class="cell-main">LS22801239</span></td>
+          <td><span class="cell-main">Year 15</span></td>
+          <td><span class="cell-main">$223,100</span></td>
+          <td><span class="cell-main">08/05/2026</span></td>
+          <td class="dbr-col">
+            <div class="dbr-cell">
+              <span class="chip chip-declined-final">
+                <span class="material-symbols-outlined cicon">block</span>Declined — Final Year
+              </span>
+              <span class="chip-meta red">Declined Yr 15 · DBR no longer available</span>
+            </div>
+          </td>
+        </tr>
+
+        <!-- 9. Eligible Year 15 — last chance -->
+        <tr>
+          <td>
+            <a class="insured-name" href="#">Robert James Kim</a>
+            <div class="insured-meta">Individual · Kai-Zen · InForce</div>
+          </td>
+          <td><span class="cell-main">LS22801240</span></td>
+          <td><span class="cell-main">Year 15</span></td>
+          <td><span class="cell-main">$310,500</span></td>
+          <td><span class="cell-main">09/12/2026</span></td>
+          <td class="dbr-col">
+            <div class="dbr-cell">
+              <span class="chip chip-eligible" style="background:#FCE4EC;color:#880E4F;border-color:#F48FB1;">
+                <span class="material-symbols-outlined cicon">priority_high</span>Final Year — Send Now
+              </span>
+              <span class="chip-meta red">Year 15 — last opportunity for DBR</span>
+              <button class="btn-send btn-send-now" onclick="openSend('Robert James Kim','LS22801240','$310,500','09/12/2026','Year 15 (Final)', false)">
+                <span class="material-symbols-outlined btn-icon">send</span>Send Final Notice
+              </button>
+            </div>
+          </td>
+        </tr>
+
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- Send Notice Dialog -->
+<div class="overlay" id="dlg-send">
+  <div class="dialog">
+    <div class="dlg-title">
+      <span class="material-symbols-outlined icon" style="color:#2A62E4">mark_email_unread</span>
+      <span id="dlg-send-title">Send DBR Notice</span>
+    </div>
+    <div class="dlg-body">A pre-populated LifeLink eSign form will be sent to the client and all Settlor authorized signers on this case.</div>
+    <div id="dlg-send-warn" class="dlg-warn" style="display:none">
+      This client previously declined. This notice is the re-offer for the next eligible year.
+    </div>
+    <div class="dlg-detail">
+      <div class="dlg-detail-row"><span class="dlg-label">Insured</span><span class="dlg-val" id="d-name">—</span></div>
+      <div class="dlg-detail-row"><span class="dlg-label">Policy #</span><span class="dlg-val" id="d-policy">—</span></div>
+      <div class="dlg-detail-row"><span class="dlg-label">DBR Amount</span><span class="dlg-val" id="d-amount">—</span></div>
+      <div class="dlg-detail-row"><span class="dlg-label">Anniversary</span><span class="dlg-val" id="d-date">—</span></div>
+      <div class="dlg-detail-row"><span class="dlg-label">Policy Year</span><span class="dlg-val" id="d-year">—</span></div>
+    </div>
+    <div class="dlg-actions">
+      <button class="btn-dlg-cancel" onclick="closeAll()">Cancel</button>
+      <button class="btn-dlg-ok" onclick="confirmSend()">Send Notice</button>
     </div>
   </div>
+</div>
 
-  <!-- SEND MODAL -->
-  <div class="modal-overlay" id="sendModal">
-    <div class="modal">
-      <div class="modal-header">
-        <h3>Confirm — Send DBR Notice</h3>
-        <button class="modal-close" onclick="closeModal('sendModal')">close</button>
-      </div>
-      <div class="modal-body">
-        <p>You are about to send a <strong>Death Benefit Reduction notice</strong>. Confirm details and expected signers.</p>
-        <div class="modal-row"><span class="modal-row-label">Insured</span><strong id="mName">—</strong></div>
-        <div class="modal-row"><span class="modal-row-label">Policy #</span><strong id="mPolicy">—</strong></div>
-        <div class="modal-row"><span class="modal-row-label">Policy Year</span><strong id="mYear">—</strong></div>
-        <div class="modal-row"><span class="modal-row-label">DBR Amount</span><strong id="mAmt">—</strong></div>
-        <div class="signer-section">
-          <div class="signer-section-title">Expected Signers</div>
-          <div class="signer-card">
-            <span class="signer-badge client"><span class="material-symbols-outlined" style="font-size:12px">person</span>Client Signer</span>
-            <div class="signer-row"><span class="signer-label">Name</span><span id="mClientName" style="font-weight:500;">—</span></div>
-            <div class="signer-row"><span class="signer-label">Email</span><span id="mClientEmail" style="font-weight:500;">—</span></div>
-            <div class="signer-row"><span class="signer-label">Signs</span><span style="font-size:13px;">DBR Election Form</span></div>
-          </div>
-          <div class="signer-card">
-            <span class="signer-badge settlor"><span class="material-symbols-outlined" style="font-size:12px">account_balance</span>Settlor — Hold Harmless</span>
-            <div class="signer-row"><span class="signer-label">Authorized Signer</span><span id="mSettlorName" style="font-weight:500;">—</span></div>
-            <div class="signer-row"><span class="signer-label">Email</span><span id="mSettlorEmail" style="font-weight:500;">—</span></div>
-            <div class="signer-row"><span class="signer-label">Signs</span><span style="font-size:13px;">Hold Harmless & Indemnification</span></div>
-          </div>
-        </div>
-      </div>
-      <div class="modal-footer">
-        <button class="btn-outlined" onclick="closeModal('sendModal')">Cancel</button>
-        <button class="btn-primary" onclick="confirmSend()">
-          <span class="material-symbols-outlined" style="font-size:16px">send</span>Confirm Send
-        </button>
-      </div>
+<!-- Resend Dialog -->
+<div class="overlay" id="dlg-resend">
+  <div class="dialog">
+    <div class="dlg-title">
+      <span class="material-symbols-outlined icon" style="color:#E65100">refresh</span>
+      Resend DBR Notice
+    </div>
+    <div class="dlg-warn">A notice was already sent. Resending will invalidate the previous eSign link and send a new one.</div>
+    <div class="dlg-body">A new LifeLink eSign link will be sent to <strong id="resend-name">—</strong> and all Settlor authorized signers on policy <strong id="resend-policy">—</strong>.</div>
+    <div class="dlg-actions">
+      <button class="btn-dlg-cancel" onclick="closeAll()">Cancel</button>
+      <button class="btn-dlg-ok" onclick="confirmResend()">Resend</button>
     </div>
   </div>
+</div>
 
-  <!-- RESEND MODAL -->
-  <div class="modal-overlay" id="resendModal">
-    <div class="modal">
-      <div class="modal-header">
-        <h3>Confirm — Resend DBR Notice</h3>
-        <button class="modal-close" onclick="closeModal('resendModal')">close</button>
-      </div>
-      <div class="modal-body">
-        <p>A DBR notice was already sent. Are you sure you want to <strong>resend</strong>?</p>
-        <div class="modal-row"><span class="modal-row-label">Insured</span><strong id="rName">—</strong></div>
-        <div class="modal-row"><span class="modal-row-label">Policy #</span><strong id="rPolicy">—</strong></div>
-        <div class="modal-row"><span class="modal-row-label">Originally sent</span><strong id="rOrigTime">—</strong></div>
-        <div class="signer-section">
-          <div class="signer-section-title">Expected Signers</div>
-          <div class="signer-card">
-            <span class="signer-badge client"><span class="material-symbols-outlined" style="font-size:12px">person</span>Client Signer</span>
-            <div class="signer-row"><span class="signer-label">Name</span><span id="rClientName" style="font-weight:500;">—</span></div>
-            <div class="signer-row"><span class="signer-label">Signs</span><span style="font-size:13px;">DBR Election Form</span></div>
-          </div>
-          <div class="signer-card">
-            <span class="signer-badge settlor"><span class="material-symbols-outlined" style="font-size:12px">account_balance</span>Settlor — Hold Harmless</span>
-            <div class="signer-row"><span class="signer-label">Authorized Signer</span><span id="rSettlorName" style="font-weight:500;">—</span></div>
-            <div class="signer-row"><span class="signer-label">Signs</span><span style="font-size:13px;">Hold Harmless & Indemnification</span></div>
-          </div>
-        </div>
-      </div>
-      <div class="modal-footer">
-        <button class="btn-outlined" onclick="closeModal('resendModal')">Cancel</button>
-        <button class="btn-primary" onclick="confirmResend()">
-          <span class="material-symbols-outlined" style="font-size:16px">refresh</span>Resend Notice
-        </button>
-      </div>
+<!-- Bulk Send Dialog -->
+<div class="overlay" id="dlg-bulk">
+  <div class="dialog">
+    <div class="dlg-title">
+      <span class="material-symbols-outlined icon" style="color:#2A62E4">send</span>
+      Send All Pending Notices
+    </div>
+    <div class="dlg-body">This will send DBR notices to all eligible clients in Tranche 73 who have not yet received a notice.</div>
+    <div class="dlg-detail">
+      <div class="dlg-detail-row"><span class="dlg-label">Eligible</span><span class="dlg-val">3 clients</span></div>
+      <div class="dlg-detail-row"><span class="dlg-label">Overdue</span><span class="dlg-val" style="color:#C62828">1 client</span></div>
+      <div class="dlg-detail-row"><span class="dlg-label">Total sends</span><span class="dlg-val">4 notices</span></div>
+    </div>
+    <div class="dlg-actions">
+      <button class="btn-dlg-cancel" onclick="closeAll()">Cancel</button>
+      <button class="btn-dlg-ok" onclick="confirmBulk()">Send All</button>
     </div>
   </div>
+</div>
 
-  <!-- BULK MODAL -->
-  <div class="modal-overlay" id="bulkModal">
-    <div class="modal">
-      <div class="modal-header">
-        <h3>Send All Pending DBR Notices</h3>
-        <button class="modal-close" onclick="closeModal('bulkModal')">close</button>
-      </div>
-      <div class="modal-body">
-        <p>Send DBR notices to all <strong>4 pending</strong> eligible clients in this tranche.</p>
-        <div class="modal-row"><span class="modal-row-label">Tranche</span><strong>73</strong></div>
-        <div class="modal-row"><span class="modal-row-label">Notices to send</span><strong>4</strong></div>
-        <div class="modal-row"><span class="modal-row-label">Includes overdue</span><strong style="color:var(--error)">1 overdue</strong></div>
-        <div class="modal-row"><span class="modal-row-label">Total signers notified</span><strong>8</strong></div>
-      </div>
-      <div class="modal-footer">
-        <button class="btn-outlined" onclick="closeModal('bulkModal')">Cancel</button>
-        <button class="btn-primary" onclick="confirmBulk()">
-          <span class="material-symbols-outlined" style="font-size:16px">send</span>Send All 4 Notices
-        </button>
-      </div>
-    </div>
-  </div>
+<!-- Toast -->
+<div class="toast" id="toast">
+  <span class="material-symbols-outlined icon">check_circle</span>
+  <span id="toast-msg"></span>
+</div>
 
-  <div class="toast" id="toast">
-    <span class="material-symbols-outlined">check_circle</span>
-    <span id="toastMsg">DBR Notice sent</span>
-  </div>
-
-  <div class="proto-banner">
-    <span class="material-symbols-outlined" style="font-size:16px;color:var(--primary)">construction</span>
-    <span><strong>Prototype</strong> — DBR Single Column · Tranche Management · ILIA Design Kit v1.0 · NIW / Simplicity Group</span>
-  </div>
-
-  <script>
-    const signers = {
-      'Bhavin Chandrakant Patel':{email:'b.patel@email.com',settlor:'B. Patel Trust',settlorEmail:'trustee@patel.com'},
-      'Aaron Nazar Johnson':{email:'a.johnson@email.com',settlor:'Aaron N. Johnson',settlorEmail:'a.johnson@email.com'},
-      'Taylor Hollis Cole':{email:'t.cole@email.com',settlor:'Cole Family Trust',settlorEmail:'cole.trust@email.com'},
-      'Mai Jia Yang':{email:'m.yang@email.com',settlor:'Mai Jia Yang',settlorEmail:'m.yang@email.com'},
-      'Dung Quang Pham':{email:'d.pham@email.com',settlor:'Pham Holdings LLC',settlorEmail:'auth@phamholdings.com'},
-      'Sandra Lee Morales':{email:'s.morales@email.com',settlor:'Sandra Lee Morales',settlorEmail:'s.morales@email.com'},
-    };
-    function openSendModal(name,policy,year,amt){
-      const s=signers[name]||{};
-      document.getElementById('mName').textContent=name;
-      document.getElementById('mPolicy').textContent=policy;
-      document.getElementById('mYear').textContent=year;
-      document.getElementById('mAmt').textContent=amt;
-      document.getElementById('mClientName').textContent=name;
-      document.getElementById('mClientEmail').textContent=s.email||'—';
-      document.getElementById('mSettlorName').textContent=s.settlor||name;
-      document.getElementById('mSettlorEmail').textContent=s.settlorEmail||'—';
-      document.getElementById('sendModal').classList.add('open');
-    }
-    function openResendModal(name,policy,origTime){
-      const s=signers[name]||{};
-      document.getElementById('rName').textContent=name;
-      document.getElementById('rPolicy').textContent=policy;
-      document.getElementById('rOrigTime').textContent=origTime;
-      document.getElementById('rClientName').textContent=name;
-      document.getElementById('rSettlorName').textContent=s.settlor||name;
-      document.getElementById('resendModal').classList.add('open');
-    }
-    function openBulkModal(){document.getElementById('bulkModal').classList.add('open');}
-    function closeModal(id){document.getElementById(id).classList.remove('open');}
-    function confirmSend(){closeModal('sendModal');showToast('DBR Notice sent successfully');}
-    function confirmResend(){closeModal('resendModal');showToast('DBR Notice resent successfully');}
-    function confirmBulk(){closeModal('bulkModal');showToast('4 DBR Notices sent successfully');}
-    function showToast(msg){
-      const t=document.getElementById('toast');
-      document.getElementById('toastMsg').textContent=msg;
-      t.classList.add('show');
-      setTimeout(()=>t.classList.remove('show'),3000);
-    }
-    document.querySelectorAll('.modal-overlay').forEach(o=>{
-      o.addEventListener('click',e=>{if(e.target===o)o.classList.remove('open');});
-    });
-  </script>
+<script>
+function openSend(name, policy, amount, date, year, isReoffer) {
+  document.getElementById('d-name').textContent = name;
+  document.getElementById('d-policy').textContent = policy;
+  document.getElementById('d-amount').textContent = amount;
+  document.getElementById('d-date').textContent = date;
+  document.getElementById('d-year').textContent = year;
+  document.getElementById('dlg-send-title').textContent = isReoffer ? 'Re-offer DBR Notice' : 'Send DBR Notice';
+  document.getElementById('dlg-send-warn').style.display = isReoffer ? '' : 'none';
+  document.getElementById('dlg-send').classList.add('open');
+}
+function openResend(name, policy) {
+  document.getElementById('resend-name').textContent = name;
+  document.getElementById('resend-policy').textContent = policy;
+  document.getElementById('dlg-resend').classList.add('open');
+}
+function openBulk() { document.getElementById('dlg-bulk').classList.add('open'); }
+function closeAll() {
+  document.querySelectorAll('.overlay').forEach(o => o.classList.remove('open'));
+}
+function confirmSend() { closeAll(); toast('DBR notice sent successfully'); }
+function confirmResend() { closeAll(); toast('DBR notice resent successfully'); }
+function confirmBulk() { closeAll(); toast('4 DBR notices sent to eligible clients'); }
+function toast(msg) {
+  const t = document.getElementById('toast');
+  document.getElementById('toast-msg').textContent = msg;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 3000);
+}
+</script>
 </body>
 </html>
