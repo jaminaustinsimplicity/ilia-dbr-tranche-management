@@ -102,6 +102,46 @@ tr.row-noresponse td.dbr-col{background:#FFF5F5;}
 .toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(60px);background:#323232;color:#fff;padding:10px 20px;border-radius:4px;font-size:13px;display:flex;align-items:center;gap:8px;opacity:0;transition:opacity .22s,transform .25s;pointer-events:none;z-index:200;white-space:nowrap;}
 .toast.show{opacity:1;transform:translateX(-50%) translateY(0);}
 .toast .icon{font-size:16px;color:#69F0AE;}
+
+.dlg-view{background:#fff;border-radius:4px;box-shadow:0 11px 15px rgba(0,0,0,.2);max-width:560px;width:96%;max-height:88vh;overflow-y:auto;display:flex;flex-direction:column;}
+.dlg-view-header{padding:16px 20px 14px;border-bottom:1px solid #e0e0e0;display:flex;align-items:flex-start;justify-content:space-between;flex-shrink:0;}
+.dlg-view-header-left h3{font-size:15px;font-weight:500;color:#1a1a1a;margin:0;}
+.dlg-view-header-left p{font-size:12px;color:#9e9e9e;margin:3px 0 0;}
+.btn-dlg-close{background:none;border:none;cursor:pointer;color:#9e9e9e;font-size:20px;padding:2px;line-height:1;display:flex;align-items:center;justify-content:center;border-radius:4px;}
+.btn-dlg-close:hover{background:#f5f5f5;color:#1a1a1a;}
+.dlg-view-body{padding:0;flex:1;}
+.vf-section{padding:14px 20px;border-bottom:1px solid #f0f0f0;}
+.vf-section:last-child{border-bottom:none;}
+.vf-section-title{font-size:10px;font-weight:500;text-transform:uppercase;letter-spacing:.5px;color:#9e9e9e;margin-bottom:10px;}
+.vf-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px 20px;}
+.vf-field label{font-size:11px;color:#9e9e9e;display:block;margin-bottom:2px;}
+.vf-field .vf-val{font-size:13px;color:#1a1a1a;}
+.vf-field.full{grid-column:1/-1;}
+.vf-election-box{background:#F1F8E9;border:1px solid #A5D6A7;border-radius:4px;padding:12px 16px;display:flex;align-items:center;justify-content:space-between;}
+.vf-election-box .vf-amount-label{font-size:11px;color:#2E7D32;}
+.vf-election-box .vf-amount{font-size:22px;font-weight:500;color:#1B5E20;margin-top:2px;}
+.vf-election-box .vf-amount-sub{font-size:11px;color:#4CAF50;margin-top:1px;}
+.vf-accepted-badge{display:inline-flex;align-items:center;gap:4px;background:#E8F5E9;border:1px solid #A5D6A7;border-radius:12px;padding:4px 12px;font-size:12px;font-weight:500;color:#1B5E20;}
+.vf-signers{display:flex;flex-direction:column;gap:0;}
+.vf-signer-row{display:flex;align-items:center;gap:10px;padding:9px 0;border-bottom:1px solid #f5f5f5;}
+.vf-signer-row:last-child{border-bottom:none;}
+.vf-avatar{width:30px;height:30px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;flex-shrink:0;}
+.vf-avatar.client{background:#E3F2FD;color:#1565C0;}
+.vf-avatar.settlor{background:#E8F5E9;color:#1B5E20;}
+.vf-avatar.trustee{background:#F3E5F5;color:#6A1B9A;}
+.vf-avatar.bank{background:#FFF8E1;color:#E65100;}
+.vf-signer-name{font-size:13px;font-weight:500;color:#1a1a1a;}
+.vf-signer-role{font-size:11px;color:#9e9e9e;margin-top:1px;}
+.vf-signer-status{margin-left:auto;flex-shrink:0;}
+.chip-signed{display:inline-flex;align-items:center;gap:3px;background:#E8F5E9;color:#1B5E20;border:1px solid #A5D6A7;border-radius:12px;padding:2px 8px;font-size:10px;font-weight:500;}
+.chip-pending-sig{display:inline-flex;align-items:center;gap:3px;background:#FFF8E1;color:#E65100;border:1px solid #FFB74D;border-radius:12px;padding:2px 8px;font-size:10px;font-weight:500;}
+.vf-envelope-id{font-family:monospace;font-size:11px;color:#616161;background:#F5F5F5;padding:2px 6px;border-radius:3px;display:inline-block;}
+.vf-doc-link{display:inline-flex;align-items:center;gap:4px;color:#1565C0;font-size:12px;cursor:pointer;}
+.vf-doc-link:hover{text-decoration:underline;}
+.vf-notes-box{background:#FFFDE7;border-left:3px solid #FFC107;border-radius:2px;padding:8px 12px;font-size:12px;color:#5a3e00;font-style:italic;line-height:1.5;}
+.dlg-view-footer{padding:12px 20px;border-top:1px solid #e0e0e0;display:flex;align-items:center;justify-content:space-between;flex-shrink:0;background:#fafafa;}
+.vf-footer-note{font-size:11px;color:#9e9e9e;display:flex;align-items:center;gap:4px;}
+.vf-footer-btns{display:flex;gap:8px;}
 </style>
 </head>
 <body>
@@ -251,7 +291,7 @@ tr.row-noresponse td.dbr-col{background:#FFF5F5;}
           <td class="dbr-col"><div class="dbr-cell">
             <span class="chip chip-accepted" onclick="openStatus('accepted')"><span class="material-symbols-outlined cicon">check_circle</span>DBR Accepted<span class="material-symbols-outlined info-mark">info</span></span>
             <span class="chip-meta green">Elected YES · May 22, 2026</span>
-            <button class="btn-view"><span class="material-symbols-outlined btn-icon">open_in_new</span>View Form</button>
+            <button class="btn-view" onclick="openViewForm()"><span class="material-symbols-outlined btn-icon">open_in_new</span>View Form</button>
           </div></td>
         </tr>
 
@@ -373,6 +413,169 @@ tr.row-noresponse td.dbr-col{background:#FFF5F5;}
   </div>
 </div>
 
+
+<!-- View Form Modal -->
+<div class="overlay" id="dlg-viewform">
+  <div class="dlg-view">
+    <div class="dlg-view-header">
+      <div class="dlg-view-header-left">
+        <h3>DBR Election Form</h3>
+        <p>Submitted May 22, 2026 &middot; LS22801237 &middot; Read-only record</p>
+      </div>
+      <button class="btn-dlg-close" onclick="closeAll()" aria-label="Close"><span class="material-symbols-outlined" style="font-size:20px;">close</span></button>
+    </div>
+    <div class="dlg-view-body">
+
+      <!-- Policy Info -->
+      <div class="vf-section">
+        <div class="vf-section-title">Policy Information</div>
+        <div class="vf-grid">
+          <div class="vf-field">
+            <label>Insured</label>
+            <div class="vf-val">Mai Jia Yang</div>
+          </div>
+          <div class="vf-field">
+            <label>Policy number</label>
+            <div class="vf-val">LS22801237</div>
+          </div>
+          <div class="vf-field full">
+            <label>Trust name</label>
+            <div class="vf-val">Mai Jia Yang Kai-Zen Trust</div>
+          </div>
+          <div class="vf-field">
+            <label>Trust EIN</label>
+            <div class="vf-val">46-7241182</div>
+          </div>
+          <div class="vf-field">
+            <label>Carrier</label>
+            <div class="vf-val">Provident Life</div>
+          </div>
+          <div class="vf-field">
+            <label>Policy year</label>
+            <div class="vf-val">Year 13</div>
+          </div>
+          <div class="vf-field">
+            <label>Anniversary date</label>
+            <div class="vf-val">06/10/2026</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- DBR Election -->
+      <div class="vf-section">
+        <div class="vf-section-title">DBR Election</div>
+        <div class="vf-election-box">
+          <div>
+            <div class="vf-amount-label">Elected DBR amount</div>
+            <div class="vf-amount">$95,750</div>
+            <div class="vf-amount-sub">Max available &middot; Year 13</div>
+          </div>
+          <span class="vf-accepted-badge"><span class="material-symbols-outlined" style="font-size:14px;">check_circle</span>Accepted</span>
+        </div>
+        <div class="vf-grid" style="margin-top:10px;">
+          <div class="vf-field">
+            <label>Election date</label>
+            <div class="vf-val">May 22, 2026</div>
+          </div>
+          <div class="vf-field">
+            <label>Notice sent</label>
+            <div class="vf-val">May 8, 2026</div>
+          </div>
+          <div class="vf-field">
+            <label>Response window</label>
+            <div class="vf-val">30 days</div>
+          </div>
+          <div class="vf-field">
+            <label>Days to respond</label>
+            <div class="vf-val">14 days (responded early)</div>
+          </div>
+        </div>
+        <div class="vf-field full" style="margin-top:10px;">
+          <label>Client notes</label>
+          <div class="vf-notes-box">"Confirmed with advisor. Proceeding with full DBR reduction for Year 13."</div>
+        </div>
+      </div>
+
+      <!-- Signers -->
+      <div class="vf-section">
+        <div class="vf-section-title">Signers &mdash; DocuSign Signing Ceremony</div>
+        <div class="vf-signers">
+          <div class="vf-signer-row">
+            <div class="vf-avatar client">MJ</div>
+            <div>
+              <div class="vf-signer-name">Mai Jia Yang</div>
+              <div class="vf-signer-role">Client / Insured &middot; Signed May 22, 2026 at 2:14 PM</div>
+            </div>
+            <div class="vf-signer-status"><span class="chip-signed"><span class="material-symbols-outlined cicon" style="font-size:11px;">check</span>Signed</span></div>
+          </div>
+          <div class="vf-signer-row">
+            <div class="vf-avatar settlor">ST</div>
+            <div>
+              <div class="vf-signer-name">Mai Jia Yang (Settlor)</div>
+              <div class="vf-signer-role">Settlor &mdash; same as insured &middot; Signed May 22, 2026</div>
+            </div>
+            <div class="vf-signer-status"><span class="chip-signed"><span class="material-symbols-outlined cicon" style="font-size:11px;">check</span>Signed</span></div>
+          </div>
+          <div class="vf-signer-row">
+            <div class="vf-avatar trustee">TR</div>
+            <div>
+              <div class="vf-signer-name">Provident Life (Trustee)</div>
+              <div class="vf-signer-role">Carrier trustee signature &middot; Awaiting</div>
+            </div>
+            <div class="vf-signer-status"><span class="chip-pending-sig"><span class="material-symbols-outlined cicon" style="font-size:11px;">hourglass_top</span>Pending</span></div>
+          </div>
+          <div class="vf-signer-row">
+            <div class="vf-avatar bank">BK</div>
+            <div>
+              <div class="vf-signer-name">Bank Representative</div>
+              <div class="vf-signer-role">Lending institution sign-off &middot; Awaiting</div>
+            </div>
+            <div class="vf-signer-status"><span class="chip-pending-sig"><span class="material-symbols-outlined cicon" style="font-size:11px;">hourglass_top</span>Pending</span></div>
+          </div>
+        </div>
+        <div style="margin-top:8px;font-size:11px;color:#9e9e9e;">2 of 4 signers complete &middot; Signing Ceremony #1 done &middot; Trustee &amp; Bank routing is post-MVP</div>
+      </div>
+
+      <!-- DocuSign Envelope -->
+      <div class="vf-section">
+        <div class="vf-section-title">DocuSign Envelope</div>
+        <div class="vf-grid">
+          <div class="vf-field full">
+            <label>Envelope ID</label>
+            <div class="vf-val"><span class="vf-envelope-id">DS-2026-LS22801237-001</span></div>
+          </div>
+          <div class="vf-field">
+            <label>Envelope status</label>
+            <div class="vf-val"><span class="chip chip-awaiting" style="cursor:default;font-size:10px;padding:2px 8px;">2 of 4 signed</span></div>
+          </div>
+          <div class="vf-field">
+            <label>Submitted via</label>
+            <div class="vf-val">DocuSign &middot; ILIA Auto</div>
+          </div>
+          <div class="vf-field full">
+            <label>Document</label>
+            <div class="vf-val">
+              <span class="vf-doc-link" onclick="toast('PDF download — DocuSign integration required')">
+                <span class="material-symbols-outlined" style="font-size:14px;vertical-align:-2px;">picture_as_pdf</span>
+                DBR_Election_LS22801237_Yr13.pdf
+                <span class="material-symbols-outlined" style="font-size:12px;">download</span>
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+    <div class="dlg-view-footer">
+      <span class="vf-footer-note"><span class="material-symbols-outlined icon" style="font-size:13px;">lock</span>Read-only &middot; Submitted via ILIA</span>
+      <div class="vf-footer-btns">
+        <button class="btn-dlg-cancel" onclick="closeAll()">Close</button>
+        <button class="btn-dlg-ok" onclick="toast('PDF download — DocuSign integration required');"><span class="material-symbols-outlined" style="font-size:14px;vertical-align:-2px;">download</span> Download PDF</button>
+      </div>
+    </div>
+  </div>
+</div>
+
 <!-- Toast -->
 <div class="toast" id="toast"><span class="material-symbols-outlined icon">check_circle</span><span id="toast-msg"></span></div>
 
@@ -449,6 +652,7 @@ function openResend(name,policy){
   document.getElementById('dlg-resend').classList.add('open');
 }
 function openBulk(){document.getElementById('dlg-bulk').classList.add('open');}
+function openViewForm(){document.getElementById('dlg-viewform').classList.add('open');}
 function closeAll(){document.querySelectorAll('.overlay').forEach(o=>o.classList.remove('open'));}
 function confirmSend(){closeAll();toast('DBR notice sent successfully');}
 function confirmResend(){closeAll();toast('DBR notice resent successfully');}
